@@ -82,3 +82,117 @@ npm ERR! There is likely additional logging output above.
 
 npm ERR! Please include the following file with any support request:
 npm ERR!     C:\Users\Saad Moussadek\Desktop\match-making\node\npm-debug.log
+
+> node@0.0.0 start /cs/home/sm398/match-making/node
+> node ./bin/www
+
+undefined
+undefined
+Connected.
+8 document(s) deleted
+1 document inserted
+{ result: { ok: 1, n: 7 },
+  ops: 
+   [ { ID: '1',
+       name: 'test1',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c8f },
+     { ID: '2',
+       name: 'test2',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c90 },
+     { ID: '3',
+       name: 'test3',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c91 },
+     { ID: '4',
+       name: 'test4',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c92 },
+     { ID: '5',
+       name: 'test5',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c93 },
+     { ID: '6',
+       name: 'test6',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c94 },
+     { ID: '7',
+       name: 'test7',
+       profilePicture: 'test',
+       _id: 5a8b25a32b7b432558a69c95 } ],
+  insertedCount: 7,
+  insertedIds: 
+   { '0': 5a8b25a32b7b432558a69c8f,
+     '1': 5a8b25a32b7b432558a69c90,
+     '2': 5a8b25a32b7b432558a69c91,
+     '3': 5a8b25a32b7b432558a69c92,
+     '4': 5a8b25a32b7b432558a69c93,
+     '5': 5a8b25a32b7b432558a69c94,
+     '6': 5a8b25a32b7b432558a69c95 } }
+[ { _id: 5a8b25a32b7b432558a69c8e,
+    ID: '1010',
+    name: 'Saad',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c8f,
+    ID: '1',
+    name: 'test1',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c90,
+    ID: '2',
+    name: 'test2',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c91,
+    ID: '3',
+    name: 'test3',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c92,
+    ID: '4',
+    name: 'test4',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c93,
+    ID: '5',
+    name: 'test5',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c94,
+    ID: '6',
+    name: 'test6',
+    profilePicture: 'test' },
+  { _id: 5a8b25a32b7b432558a69c95,
+    ID: '7',
+    name: 'test7',
+    profilePicture: 'test' } ]
+8 document updated
+[ { _id: 5a8b25a32b7b432558a69c8e,
+    ID: '1010',
+    name: 'Saad',
+    profilePicture: 'modified' },
+  { _id: 5a8b25a32b7b432558a69c8f,
+    ID: '1',
+    name: 'test1',
+    profilePicture: 'modified' },
+  { _id: 5a8b25a32b7b432558a69c90,
+    ID: '2',
+    name: 'test2',
+    profilePicture: 'modified' } ]
+[0mGET / [36m304 [0m514.898 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m18.183 ms - -[0m
+
+> node@0.0.0 start /cs/home/sm398/match-making/node
+> node ./bin/www
+
+undefined
+undefined
+Port 3000 is already in use
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! node@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the node@0.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /cs/home/sm398/.npm/_logs/2018-02-19T19_29_52_934Z-debug.log
+[0mGET / [36m304 [0m17.032 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.538 ms - -[0m

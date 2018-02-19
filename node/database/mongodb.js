@@ -1,20 +1,16 @@
 const MongoClient = require('mongodb').MongoClient;
-const test = require('assert');
-// Connection url
-const url = 'mongodb://localhost:27017';
-// Database Name
-const dbName = 'test';
+const url = process.env.MONGODB_URL;
+const dbName = process.env.DB_NAME;
 let dbo;
 
-console.log(process.env.MONGODB_URL);
 // Connect using MongoClient
 MongoClient.connect(url, function(err, client)
 {
 
     if (err) throw err;
-    console.log("Connected.");
-    dbo = client.db(dbName);
 
+    dbo = client.db(dbName);
+    /*
 
     var deleteQuery = { name: /^/ };
     dbo.collection("users").deleteMany(deleteQuery, function(err, obj) {
@@ -66,10 +62,23 @@ MongoClient.connect(url, function(err, client)
         console.log(result);
         client.close();
     });
-
+    */
 
 });
 
-module.exports = {
-    //delete: function()
-}
+module.exports =
+{
+    add: function(data, collectionName)
+    {
+        return dbo.collection(collectionName).insertOne(data);
+    },
+
+    filter: function(query, collectionName) {
+        return dbo.collection(collectionName).find(query).toArray();
+    },
+
+    update: function(query, update, collectionName) {
+        return dbo.collection(collectionName).update(query, update);
+    }
+
+};
