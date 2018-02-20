@@ -20,7 +20,7 @@ module.exports =
         {
             uc.addUser(user).then(function(userId)
             {
-                db.filter( { remainingPlayers : { $gt: 0 }, name : game}, collectionName ).then(function(result)
+                getInCompleteGames(game).then(function(result)
                 {
                     if (result.length === 0)
                     {
@@ -55,6 +55,32 @@ module.exports =
 };
 
 /**
+ * Gets all the games that are not full
+ * @param {string} game - name of hte game
+ * @returns {Promise<Array>} - Promise that represents array of games
+ */
+let getInCompleteGames = function(game)
+{
+    return db.filter( { remainingPlayers : { $gt: 0 }, name : game}, collectionName );
+};
+
+/**
+ * Creates a game in the database
+ * @param {string} game - name of the game
+ * @returns {Promise<Object>} - returns the mongodb result of adding the game to the database
+ */
+let createGame = function(game)
+{
+    let newGame =
+        {
+            name : game,
+            remainingPlayers : getGameSize(game),
+            players: []
+        };
+    return db.add(newGame, collectionName);
+};
+
+/**
  * Returns the total number of players in the given game
  * @param {string} game - name of the game
  * @returns {number} number of players that ideally play the game
@@ -66,20 +92,4 @@ let getGameSize = function(game)
         return 12;
     }
     else return 12;
-};
-
-/**
- * Creates a game in the database
- * @param {string} game - name of the game
- * @returns {Promise<Object>} - returns the mongodb result of adding the game to the database
- */
-let createGame = function(game)
-{
-    let newGame =
-    {
-        name : game,
-        remainingPlayers : getGameSize(game),
-        players: []
-    };
-    return db.add(newGame, collectionName);
 };
