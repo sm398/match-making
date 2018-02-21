@@ -22,16 +22,19 @@ module.exports =
             {
                 getInCompleteGames(game).then(function(result)
                 {
+                    console.log(result);
                     if (result.length === 0)
                     {
-                        createGame(game).then(function(res)
+                        createGame(game, userId).then(function(res)
                         {
-                            fulfill(userId);
+                            fulfill(userId, result);
                         });
                     }
                     else
                     {
-
+                        linkGameAndUser(result[0], userId).then(function(res){
+                            fulfill(userId, result);
+                        })
                     }
                 });
             },
@@ -41,6 +44,21 @@ module.exports =
             });
         })
     },
+
+    /**
+     * Removes a user from a game
+     * @param {Object} user - The user that will be removed
+     * @param {String} game - The game that the player wants to retire from
+     * @returns {Promise<boolean>} Promise that return true or false
+     */
+    removeUserFromGame : function(user, game) {
+      return new Promise(function(fulfill, reject)
+      {
+        //ToDo
+      })
+    },
+
+
 
     /**
      * Replaces the injections. Can be used for mock testing
@@ -65,19 +83,32 @@ let getInCompleteGames = function(game)
 };
 
 /**
- * Creates a game in the database
+ * Creates a game in the database and adds a user to it
  * @param {string} game - name of the game
+ * @param {string} userId - the ID of the user the lobby is created for in the first place
  * @returns {Promise<Object>} - returns the mongodb result of adding the game to the database
  */
-let createGame = function(game)
+let createGame = function(game, userId)
 {
     let newGame =
         {
             name : game,
-            remainingPlayers : getGameSize(game),
-            players: []
+            remainingPlayers : (getGameSize(game) - 1),
+            players: [userId]
         };
+    console.log(newGame.players);
     return db.add(newGame, collectionName);
+};
+
+/**
+ * Adds a user to an existing game
+ * @param {Object} game - name of the game
+ * @param {string} userId - the ID of the user the lobby is created for in the first place
+ * @returns {Promise<Object>} - returns the mongodb result of adding the game to the database
+ */
+let linkGameAndUser = function(game, userId)
+{
+    return db.update({ _id: game._id }, {$push: {players: userId}, $inc: { remainingPlayers: -1 }}, collectionName);
 };
 
 /**
