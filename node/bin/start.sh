@@ -45,10 +45,10 @@ npm install
 source ./config/${ENVIRONMENT}.env
 
 # kills all the processes using this port
-kill $(lsof -t -i:${PORT})
 
 # Running the node.js server
 if [ "$PRODUCTION" == "true" ] ; then
+    kill $(lsof -t -i:${PORT})
     nohup npm start &
 else
     npm start

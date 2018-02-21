@@ -24,5 +24,18 @@ module.exports =
                 reject(err);
             });
         });
+    },
+
+
+    /**
+     * Linking user to a game
+     * @param {string} userId the user's ID
+     * @param {string} gameId the game's ID
+     * @returns {*|Promise} returns boolean promise
+     */
+    linkUserToGame: function(userId, gameId) {
+        console.log(userId);
+        console.log(gameId);
+        return db.update( {_id: userId}, {"$set": { "gameId": gameId}}, collectionName );
     }
 };

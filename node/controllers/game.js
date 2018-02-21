@@ -11,29 +11,31 @@ module.exports =
     /**
      * Adds person to the queue so that it can be added to a game
      * @param {Object} user - The user that will be queued
-     * @param {String} game - The game that the player wants to play
-     * @returns {Promise<boolean>} Promise that return true or false
+     * @param {String} gameName - The game that the player wants to play
+     * @returns {Promise<>}
      */
-    assignUserToGame: function(user, game)
+    assignUserToGame: function(user, gameName)
     {
         return new Promise(function(fulfill, reject)
         {
             uc.addUser(user).then(function(userId)
             {
-                getInCompleteGames(game).then(function(result)
+                getIncompleteGame(gameName).then(function(games)
                 {
-                    console.log(result);
-                    if (result.length === 0)
+                    if (games.length === 0)
                     {
-                        createGame(game, userId).then(function(res)
+                        createGame(gameName, userId).then(function(res)
                         {
-                            fulfill(userId, result);
+                            fulfill(userId);
                         });
                     }
                     else
                     {
-                        linkGameAndUser(result[0], userId).then(function(res){
-                            fulfill(userId, result);
+                        linkGameToUser(games[0], userId).then(function(res)
+                        {
+                            uc.linkUserToGame(userId, games[0]._id).then(function(res){
+                                fulfill(userId);
+                            });
                         })
                     }
                 });
@@ -42,6 +44,23 @@ module.exports =
             {
                 reject(err);
             });
+        })
+    },
+
+
+    /**
+     * Return the full game
+     * @param {Object} user - The user that will be removed
+     * @returns {Promise<boolean>} Promise that return true or false
+     */
+    getGame : function(userId) {
+        return new Promise(function(fulfill, reject)
+        {
+            console.log("CHeck");
+            db.filter({ userId }, collectionName).then(function(res, req){
+                console.log(res);
+                fulfill();
+            })
         })
     },
 
@@ -59,7 +78,6 @@ module.exports =
     },
 
 
-
     /**
      * Replaces the injections. Can be used for mock testing
      * @param {Object} database
@@ -70,6 +88,8 @@ module.exports =
         db = database;
         uc = userController;
     }
+
+
 };
 
 /**
@@ -77,7 +97,7 @@ module.exports =
  * @param {string} game - name of hte game
  * @returns {Promise<Array>} - Promise that represents array of games
  */
-let getInCompleteGames = function(game)
+let getIncompleteGame = function(game)
 {
     return db.filter( { remainingPlayers : { $gt: 0 }, name : game}, collectionName );
 };
@@ -106,8 +126,9 @@ let createGame = function(game, userId)
  * @param {string} userId - the ID of the user the lobby is created for in the first place
  * @returns {Promise<Object>} - returns the mongodb result of adding the game to the database
  */
-let linkGameAndUser = function(game, userId)
+let linkGameToUser = function(game, userId)
 {
+
     return db.update({ _id: game._id }, {$push: {players: userId}, $inc: { remainingPlayers: -1 }}, collectionName);
 };
 

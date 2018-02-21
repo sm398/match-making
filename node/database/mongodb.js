@@ -47,6 +47,6 @@ module.exports =
      */
     update: function(query, update, collectionName)
     {
-        return dbo.collection(collectionName).update(query, update);
+        return dbo.collection(collectionName).updateOne(query, update);
     }
 };

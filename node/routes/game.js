@@ -15,5 +15,13 @@ router.post('/assign', function(req, res, next)
     });
 });
 
+router.get('/', function(req, res, next)
+{
+    gc.getGame(req.headers["userId"]).then(function(game)
+    {
+        res.json(game);
+    });
+});
+
 
 module.exports = router;
