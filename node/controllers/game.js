@@ -79,14 +79,21 @@ module.exports =
 
     /**
      * Removes a user from a game
-     * @param {Object} user - The user that will be removed
-     * @param {String} game - The game that the player wants to retire from
+     * @param {Object} userId - The user that will be removed
+     * @param {String} gameId - The game that the player wants to retire from
      * @returns {Promise<boolean>} Promise that return true or false
      */
-    removeUserFromGame : function(user, game) {
+    removeUserFromGame : function(userId, gameId) {
       return new Promise(function(fulfill, reject)
       {
-        //ToDo
+          //ToDo UNDERSTAND HOW THE HELL QUERYING INSIDE AN ARRAY WORKS
+          //console.log(userId + " " + gameId);
+          db.update({ _id: gameId }, {$pull: {players: userId }, $inc: { remainingPlayers: 1 }}, collectionName).then(function(res) {
+              console.log(res);
+            uc.removeUserFromGame(userId).then(function() {
+                fulfill(userId);
+            });
+          });
       })
     },
 

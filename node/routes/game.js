@@ -15,6 +15,14 @@ router.post('/assign', function(req, res, next)
     });
 });
 
+router.post('/retire', function(req, res, next)
+{
+    gc.removeUserFromGame(req.body.userId, req.body.gameId).then(function(removedUserId)
+    {
+        res.json({"userId" : removedUserId});
+    });
+});
+
 router.get('/', function(req, res, next)
 {
     gc.getGame(req.headers["userid"]).then(function(game)

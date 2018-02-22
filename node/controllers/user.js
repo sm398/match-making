@@ -34,8 +34,17 @@ module.exports =
      * @returns {*|Promise} returns boolean promise
      */
     linkUserToGame: function(userId, gameId) {
-        console.log(userId);
-        console.log(gameId);
+        console.log("Added user : " + userId);
+        console.log("To game : " + gameId);
         return db.update( {_id: userId}, {"$set": { "gameId": gameId}}, collectionName );
+    },
+
+    /**
+     * Removing user from a game
+     * @param {string} userId the user's ID
+     * @returns {*|Promise} returns boolean promise
+     */
+    removeUserFromGame: function(userId) {
+        return db.update( {_id: userId}, {"$unset": { "gameId": 1}}, collectionName );
     }
 };
