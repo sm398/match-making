@@ -49,17 +49,30 @@ module.exports =
 
 
     /**
-     * Return the full game
-     * @param {Object} user - The user that will be removed
+     * Return the full game - or not
+     * @param {Object} userId - The user asking for his game
      * @returns {Promise<boolean>} Promise that return true or false
      */
     getGame : function(userId) {
         return new Promise(function(fulfill, reject)
         {
-            console.log("CHeck");
-            db.filter({ userId }, collectionName).then(function(res, req){
-                console.log(res);
-                fulfill();
+            db.filter({remainingPlayers: 0} , collectionName).then(function(res, req){
+                let found = false;
+                for (let i = 0; i < res.length; i++) {
+                    let game = res[i];
+                    for (let j = 0; j < game.players.length; j++) {
+                        let playerId = game.players[j];
+                        if (playerId == userId) {
+                            fulfill(game);
+                            found = true;
+                        }
+                    }
+
+                }
+                if (!found) {
+                    console.log("Not found or game incomplete");
+                    reject("Game not ready");
+                }
             })
         })
     },

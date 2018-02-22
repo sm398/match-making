@@ -17,7 +17,7 @@ router.post('/assign', function(req, res, next)
 
 router.get('/', function(req, res, next)
 {
-    gc.getGame(req.headers["userId"]).then(function(game)
+    gc.getGame(req.headers["userid"]).then(function(game)
     {
         res.json(game);
     });
