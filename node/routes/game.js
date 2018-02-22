@@ -11,7 +11,7 @@ router.post('/assign', function(req, res, next)
 {
     gc.assignUserToGame(req.body, req.headers["game"]).then(function(userId)
     {
-        res.json({"userId" : userId});
+        res.json({"userId": userId});
     });
 });
 
@@ -19,7 +19,7 @@ router.post('/retire', function(req, res, next)
 {
     gc.removeUserFromGame(req.body.userId, req.body.gameId).then(function(removedUserId)
     {
-        res.json({"userId" : removedUserId});
+        res.json({"userId": removedUserId});
     });
 });
 

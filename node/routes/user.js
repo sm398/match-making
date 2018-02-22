@@ -12,7 +12,7 @@ router.post('/', function(req, res, next)
     uc.addUser(req.body).then(function(userId)
     {
         res.status = 201;
-        res.json({"userId" : userId});
+        res.json({"userId": userId});
     });
 });
 
