@@ -28,6 +28,9 @@ router.get('/', function(req, res, next)
     gc.getGame(req.headers["userid"]).then(function(game)
     {
         res.json(game);
+    }, function(err)
+    {
+        res.json(err);
     });
 });
 

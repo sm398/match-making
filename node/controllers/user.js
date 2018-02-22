@@ -4,6 +4,8 @@
 
 let db = require("../database/mongodb");
 let collectionName = "user";
+let ObjectID = require('mongodb').ObjectID;
+
 
 module.exports =
 {
@@ -45,6 +47,7 @@ module.exports =
      * @returns {*|Promise} returns boolean promise
      */
     removeUserFromGame: function(userId) {
-        return db.update( {_id: userId}, {"$unset": { "gameId": 1}}, collectionName );
+        return db.update({_id: ObjectID(userId)}, {$unset: { gameId: 1}}, collectionName);
+
     }
 };

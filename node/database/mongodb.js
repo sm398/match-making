@@ -48,5 +48,9 @@ module.exports =
     update: function(query, update, collectionName)
     {
         return dbo.collection(collectionName).updateOne(query, update);
+    },
+
+    findOne: function(query, collectionName) {
+        return dbo.collection(collectionName).findOne(query);
     }
 };
