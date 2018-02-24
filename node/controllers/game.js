@@ -52,8 +52,10 @@ module.exports =
                         console.log("Not found or game incomplete");
                         reject({error: "Game not ready"});
                     }
-                    else
-                        fulfill();
+                    else {
+                        console.log(res[0].players);
+                        fulfill(res[0]);
+                    }
                 })
             })
         },
