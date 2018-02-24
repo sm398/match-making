@@ -7,9 +7,11 @@ let url = process.env.MONGODB_URL;
 let dbName = process.env.DB_NAME;
 let dbo = null;
 
+console.log(url);
 //connects to the mongodb server
 mongoClient.connect(url, function(err, client)
 {
+    console.log(err);
     if (err) throw err;
     dbo = client.db(dbName);
 });
