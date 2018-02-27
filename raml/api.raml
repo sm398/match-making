@@ -1,0 +1,61 @@
+#%RAML 1.0
+title: Match-making
+
+uses:
+  Game: schemas/Game.raml
+
+version: v1
+/game/assign:
+  post:
+    headers:
+      facebook_user_access_token:
+        type: string
+        description: user access token given from facebook. Should be able to access atleast id and email of the facebook user.
+      gameType: string
+      longitude:
+        type: number
+        description: longitude of the location of player
+      latitude:
+        type: number
+        description: latitude of the location of player
+      radius:
+        type: boolean
+        description: radius in which the player wants to find the game (meters)
+      age: number
+      reference:
+        displayName: reference
+        description: If this user wants to join a game with another user. Enter the facebook id of the other user.
+        type: string
+        required: false
+    responses:
+      200:
+        description: The user has been added to the queue
+      404:
+        description: facebook user not found
+      409:
+        description: User already searching or playing a game
+/game/cancel:
+  delete:
+    headers:
+      facebook_user_access_token:
+        type: string
+        description: user access token given from facebook. Should be able to access atleast id and email of the facebook user.
+    responses:
+      200:
+        description: Aftere getting the response, the user is not queued for a game
+      404:
+        description: Facebook user is not found
+/game:
+  get:
+    headers:
+      facebook_user_access_token:
+        type: string
+        description: user access token given from facebook. Should be able to access atleast id and email of the facebook user.
+    responses:
+      200:
+        description: After getting the response, the user is not queued for a game anymore
+        body:
+          application/json:
+            type: Game.Game
+      404:
+        description: Facebook user is not found

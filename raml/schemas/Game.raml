@@ -1,0 +1,11 @@
+#%RAML 1.0 Library
+types:
+  Game:
+    type: object
+    properties:
+      id: string
+      gameType: string
+      players:
+        - string
+      ready:
+        description: Boolean to flag if the game is complete and ready to be played. Once the game is ready, no more players will be added
